@@ -20,4 +20,9 @@ public class UsuarioController {
       return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
+    @GetMapping("/{id}")
+    private ResponseEntity<Usuario> getById(@PathVariable Long id ) {
+        Usuario user =  usuarioService.buscarPorId(id);
+        return ResponseEntity.ok(user);
+    }
 }
