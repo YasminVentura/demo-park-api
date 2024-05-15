@@ -1,6 +1,7 @@
 package com.yasmingv.demoparkapi.service;
 
 import com.yasmingv.demoparkapi.entity.Usuario;
+import com.yasmingv.demoparkapi.exception.EntityNotFoundException;
 import com.yasmingv.demoparkapi.exception.UsernameUniqueViolationException;
 import com.yasmingv.demoparkapi.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -27,7 +28,7 @@ public class UsuarioService {
     @Transactional
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado.")
+                () -> new EntityNotFoundException(String.format("Usuário id %s não encontrado.", id))
         );
     }
 
