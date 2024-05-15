@@ -1,6 +1,7 @@
 package com.yasmingv.demoparkapi.service;
 
 import com.yasmingv.demoparkapi.entity.Usuario;
+import com.yasmingv.demoparkapi.exception.UsernameUniqueViolationException;
 import com.yasmingv.demoparkapi.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,11 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex){
+            throw new UsernameUniqueViolationException(String.format("Username '%s' já cadastrado", usuario.getUsername()));
+        }
     }
 
     @Transactional
