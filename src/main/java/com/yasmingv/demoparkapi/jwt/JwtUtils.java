@@ -63,7 +63,7 @@ public class JwtUtils {
                 .parseClaimsJws(refactorToken(token)).getBody();
 
      } catch (JwtException e) {
-        log.error(String.format("Token invalido: %s", Token, e.getMessage()));
+        log.error(String.format("Token invalido: %s", token, e.getMessage()));
      }
      return null;
    }
