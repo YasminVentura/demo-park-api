@@ -68,7 +68,7 @@ public class JwtUtils {
      return null;
    }
 
-   private static String getUsernameFromToken(String token){
+   public static String getUsernameFromToken(String token){
         return getClaimsToken(token).getSubject();
    }
 
