@@ -39,9 +39,9 @@ public class UsuarioController {
             }
     )
     @PostMapping
-    private ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto) {
-      Usuario user =  usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
-      return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
+    public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto) {
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
     @Operation(summary = "Recuperar um usuário por id.", description = "Recurso para recuperar um usuário por id.",
@@ -53,7 +53,7 @@ public class UsuarioController {
             }
     )
     @GetMapping("/{id}")
-    private ResponseEntity<UsuarioResponseDto> getById(@PathVariable Long id ) {
+    public ResponseEntity<UsuarioResponseDto> getById(@PathVariable Long id ) {
         Usuario user =  usuarioService.buscarPorId(id);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
@@ -71,13 +71,13 @@ public class UsuarioController {
             }
     )
     @PatchMapping("/{id}")
-    private ResponseEntity<Void> updatePassword(@PathVariable Long id,@Valid @RequestBody UsuarioSenhaDto dto) {
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id,@Valid @RequestBody UsuarioSenhaDto dto) {
         Usuario user =  usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmeSenha());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    private ResponseEntity<List<UsuarioResponseDto>> getAll() {
+    public ResponseEntity<List<UsuarioResponseDto>> getAll() {
         List<Usuario> users =  usuarioService.buscarTodos();
         return ResponseEntity.ok(UsuarioMapper.toListDto(users));
     }
