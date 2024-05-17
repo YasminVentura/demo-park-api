@@ -8,7 +8,7 @@ import java.util.TimeZone;
 @Configuration
 public class SpringTimezoneConfig {
 
-    @PostConstruct // 1° metodo a ser executado apos o construtor
+    @PostConstruct
     public void timezoneConfig() {
         TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
     }

@@ -6,14 +6,13 @@ import com.yasmingv.demoparkapi.web.dto.UsuarioResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UsuarioMapper {
 
     public static Usuario toUsuario(UsuarioCreateDto createDto) {
-       return new ModelMapper().map(createDto, Usuario.class);
+        return new ModelMapper().map(createDto, Usuario.class);
     }
 
     public static UsuarioResponseDto toDto(Usuario usuario) {

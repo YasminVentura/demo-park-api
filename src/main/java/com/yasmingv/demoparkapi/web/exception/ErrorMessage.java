@@ -11,19 +11,15 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter @ToString
+@Getter
+@ToString
 public class ErrorMessage {
 
     private String path;
-
     private String method;
-
     private int status;
-
     private String statusText;
-
     private String message;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> errors;
 
@@ -53,4 +49,5 @@ public class ErrorMessage {
             this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }
+
 }

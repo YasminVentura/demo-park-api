@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Configuration;
 public class SpringDocOpenApiConfig {
 
     @Bean
-    public OpenAPI openAPI(){
+    public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("Rest API - Spring Park")
+                                .title("REST API - Spring Park")
                                 .description("API para gestão de estacionamento de veículos")
                                 .version("v1")
-                                .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0.html"))
+                                .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0"))
                                 .contact(new Contact().name("Yasmin Ventura").email("yasmin.gomsv@gmail.com"))
                 );
     }

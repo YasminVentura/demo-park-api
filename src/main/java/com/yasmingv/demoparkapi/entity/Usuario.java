@@ -11,7 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor
@@ -19,35 +19,33 @@ import java.util.Objects;
 @Table(name = "usuarios")
 @EntityListeners(AuditingEntityListener.class)
 public class Usuario implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "username", nullable = false, unique = true, length = 100)
     private String username;
-    @Column(name = "password", nullable = false, length = 25)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
     private Role role = Role.ROLE_CLIENTE;
 
     @CreatedDate
-    @Column(name = "dataCriacao")
-    private LocalDate dataCriacao;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
     @LastModifiedDate
-    @Column(name = "dataModificacao")
-    private LocalDate dataModificacao;
+    @Column(name = "data_modificacao")
+    private LocalDateTime dataModificacao;
     @CreatedBy
-    @Column(name = "criadoPo")
+    @Column(name = "criado_por")
     private String criadoPor;
     @LastModifiedBy
-    @Column(name = "modificadoPor")
+    @Column(name = "modificado_por")
     private String modificadoPor;
 
-    public enum Role{
-        ROLE_ADMIN,
-        ROLE_CLIENTE
+    public enum Role {
+        ROLE_ADMIN, ROLE_CLIENTE
     }
 
     @Override
@@ -60,7 +58,7 @@ public class Usuario implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 
     @Override
