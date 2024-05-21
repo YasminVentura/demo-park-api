@@ -4,6 +4,7 @@ import com.yasmingv.demoparkapi.entity.Cliente;
 import com.yasmingv.demoparkapi.exception.CpfUniqueViolationException;
 import com.yasmingv.demoparkapi.exception.EntityNotFoundException;
 import com.yasmingv.demoparkapi.repository.ClienteRepository;
+import com.yasmingv.demoparkapi.repository.projection.ClienteProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -36,8 +37,8 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Cliente> buscarTodos(Pageable pageable) {
-        return clienteRepository.findAll(pageable);
+    public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+        return clienteRepository.findAllPageable(pageable);
     }
 
 }
