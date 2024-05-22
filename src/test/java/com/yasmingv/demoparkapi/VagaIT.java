@@ -31,6 +31,22 @@ public class VagaIT {
     }
 
     @Test
+    public void criarVaga_ComUsuarioSemPermissaoDeAcesso_RetornarErrorMessageComStatus403() {
+        testClient
+                .post()
+                .uri("/api/v1/vagas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
+                .bodyValue(new VagaCreateDto("A-05", "OCUPADA"))
+                .exchange()
+                .expectStatus().isForbidden()
+                .expectBody()
+                .jsonPath("status").isEqualTo(403)
+                .jsonPath("method").isEqualTo("POST")
+                .jsonPath("path").isEqualTo("/api/v1/vagas");
+    }
+
+    @Test
     public void criarVaga_ComCodigoJaExistente_RetornarErrorMessageComStatus409() {
         testClient
                 .post()
