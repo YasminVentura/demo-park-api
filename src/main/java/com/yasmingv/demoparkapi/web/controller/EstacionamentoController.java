@@ -1,6 +1,7 @@
 package com.yasmingv.demoparkapi.web.controller;
 
 import com.yasmingv.demoparkapi.entity.ClienteVaga;
+import com.yasmingv.demoparkapi.service.ClienteVagaService;
 import com.yasmingv.demoparkapi.service.EstacionamentoService;
 import com.yasmingv.demoparkapi.web.dto.EstacionamentoCreateDto;
 import com.yasmingv.demoparkapi.web.dto.EstacionamentoResponseDto;
@@ -28,6 +29,7 @@ import java.net.URI;
 public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
+    private final ClienteVagaService clienteVagaService;
 
     @Operation(summary = "Operação de check-in", description = "Recurso para dar entrada de um veículo no estacionamento. " +
             "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
@@ -61,4 +63,13 @@ public class EstacionamentoController {
                 .toUri();
         return ResponseEntity.created(location).body(responseDto);
     }
+
+    @GetMapping("/check-in/{recibo}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
+    public ResponseEntity<EstacionamentoResponseDto> getByRecibo(@PathVariable String recibo) {
+        ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
+        EstacionamentoResponseDto dto = ClienteVagaMapper.toDto(clienteVaga);
+        return ResponseEntity.ok(dto);
+    }
+
 }
