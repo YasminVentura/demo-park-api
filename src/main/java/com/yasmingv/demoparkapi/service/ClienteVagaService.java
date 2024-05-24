@@ -2,6 +2,7 @@ package com.yasmingv.demoparkapi.service;
 
 import com.yasmingv.demoparkapi.entity.ClienteVaga;
 import com.yasmingv.demoparkapi.exception.EntityNotFoundException;
+import com.yasmingv.demoparkapi.exception.ReciboCheckInNotFoundException;
 import com.yasmingv.demoparkapi.repository.ClienteVagaRepository;
 import com.yasmingv.demoparkapi.repository.projection.ClienteVagaProjection;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,7 @@ public class ClienteVagaService {
     @Transactional(readOnly = true)
     public ClienteVaga buscarPorRecibo(String recibo) {
         return repository.findByReciboAndDataSaidaIsNull(recibo).orElseThrow(
-                () -> new EntityNotFoundException(
-                        String.format("Recibo '%s' não encontrado no sistema ou check-out já realizado", recibo)
-                )
+                () -> new ReciboCheckInNotFoundException(recibo)
         );
     }
 
